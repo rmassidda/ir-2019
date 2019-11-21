@@ -1,0 +1,6 @@
+List of the compression algorithms to study from Ferragina's notes:
+- Delta code
+- Gamma code
+- PForDelta
+- Variable-byte code (t-nibble)
+- Elias-Fano code
