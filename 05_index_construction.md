@@ -30,14 +30,12 @@ A more common implementation is to partition by documents, each node contains th
 Each query is distributed to all nodes, with the results from various nodes being merged before presentation to the user.
 This partitioning simpifies the communication, but requires to contact all the nodes to compute any global operation.
 
-MAPREDUCE STUFF, it's just a matter of shuffling.
-
 ## Dynamic indexing
 When dealing with dynamic collections new approaches are needed to correctly index them.
 One simple solution, called auxiliary index, consist in using multiple indexes, a main one and other smallest where to insert newly arrived documents and periodically re-index all the collection into one main index;
 also deletion can be handled in this situation by invalidating a bit vector.
 Storing each postings list as a separate file, then the merges imply consists of extending each postings list of the main index by the corresponding postings list of the auxiliary index, this is unfeasible because the difficulties for a file system in handling a big number of files.
-This consolidation process requires $\frac{M}{N}$ merge operations.
+This consolidation process is costly.
 
 A better solution is provided by logarithmic merge, where a series of exponentially increasing indexes are allocated in the disk and in memory an index is present larger as the smallest on disk.
 If an index $I_i$ becomes too big its content is merged with the successive $I_{i+1}$, and so on if after merging also this index becomes too big, this maintains the invariant about the fact that each one of the indexes on the disk is either empty or full.
