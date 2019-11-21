@@ -1,4 +1,4 @@
-# Information Retrieval 18/19
+# Information Retrieval 19/20
 
 Master degree in Computer Science, Università di Pisa.
 Notes of the Information Retrieval course taught by prof. [Ferragina](http://pages.di.unipi.it/ferragina/).
