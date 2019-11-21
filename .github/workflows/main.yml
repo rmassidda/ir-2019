@@ -14,5 +14,5 @@ jobs:
           args: "--standalone --output=ir-2019.pdf input.md"
       - uses: actions/upload-artifact@master
         with:
-          name: ir-2019.pdf
+          name: ir-2019
           path: ir-2019.pdf
