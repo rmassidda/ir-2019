@@ -13,6 +13,7 @@ An updated PDF copy of the notes is automatically generated as an artifact in th
 A not-surely-updated PDF copy is by the way included in the repository as `ir-2019.pdf`.
 
 ## Contents
+- [Introduction](00_introduction.md)
 - [Crawling](01_crawling.md)
 - [LSH](02_lsh.md)
 - [Deduplication](03_deduplication.md)
@@ -22,6 +23,7 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [Document Parsing](07_document_parsing.md)
 - [Search](08_search.md)
 - [Query Processing](09_query_processing.md)
+- [Posting Compression](10_posting_compression.md)
 
 ## Todo
 
