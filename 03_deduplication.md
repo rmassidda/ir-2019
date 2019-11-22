@@ -20,17 +20,19 @@ $$
 This process requires a big amount of space, and the full cost of computing the intersection over the whole shingling sets.
 
 ## Min-hashing
-A possible way to approximate the Jaccard similarity is using $L$ random permutations to generate a sketch given by the minimum of the shingles in each possible permutation.
+A possible way to approximate the Jaccard similarity between two sets is using $L$ random permutations to generate a sketch given by the minimum of the set in each considered permutation.
 
 $$
 < \min\pi_1(S_A), \dots, \min\pi_L(S_A) >
 $$
-This is useful given that is possible to prove that $\mathbb{P}(\min\pi_i(S_A)=\min\pi_i(S_B))=J(S_A,S_B)$, and so:
+To share the same minimum value in the same permutation $\pi_i$, the minimum must have been taken from the intersection between all the possible values, so it's immediate that $p = P(\min\pi_i(S_A)=\min\pi_i(S_B))=J(S_A,S_B)$.
+
+We are now able to approximate the Jaccard similarity of the two sets by counting the number of equal components between two sketches and normalizing it via $L$, this is sound because of this observation:
 $$
-\frac{\mathbb{E}(\textrm{\#equal components})}{L} \approx \frac{L*\mathbb{P}}{L} = J(S_A,S_B)
+\frac{\mathbb{E}(\textrm{\#equal components})}{L} = \frac{L*p}{L} = J(S_A,S_B)
 $$
 
-The same technique used in LSH can be used here to reduce space occupancy, projecting $L'$ times the sketch of each set.
+The space occupancy of this technique can be reduced at the cost of introducing approximate results by projecting each sketch into a set of $k$ integers for $L'$ times, and then group them by equal component as in LSH.
 
 ## Cosine distance
 The min-hashing procedure maps a document to a multi-dimensional vector on which to compute similarity.
