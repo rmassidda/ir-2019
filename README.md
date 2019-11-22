@@ -16,5 +16,5 @@ An updated PDF copy of the notes is automatically generated as an artifact in th
 
 - [ ] LSH k-means comparison table kind of sucks.
 - [ ] Cosine distance in 03
-- [*] Copy block in 04
+- [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
