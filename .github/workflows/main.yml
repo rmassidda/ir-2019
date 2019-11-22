@@ -8,9 +8,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
+      - run: sed -e '$s/$/\n/' -s *.md > input.md
       - uses: maxheld83/pandoc@v2
         with:
-          args: "--standalone --output=ir-2019.pdf *.md"
+          args: "--standalone --output=ir-2019.pdf input.md"
       - uses: actions/upload-artifact@master
         with:
           name: ir-2019
