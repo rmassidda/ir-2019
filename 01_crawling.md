@@ -65,7 +65,17 @@ To check if a page has been parsed or downloaded before a first control can be d
 A Bloom Filter (1970) is a probabilistic data structure used to check the elements of a set, it ensures a positive result if an element is in the set, but also could provide false positives.
 A binary array of size $m$ is created, and then a family of $k$ hash functions is used to map an object to a position in the array.
 To check if a certain element $u$ is in the array is equivalent to the proposition $\land^{k}_{i=1} h_i (u)$.
-Under the assumption of simple uniform hashing, the probability that a fixed position in the array contains zero is $p \approx e^{-kn/m}$, and so the probability of a false positive is $\epsilon = (1-p)^k$.
+
+Under the assumption of simple uniform hashing, the probability that a fixed position in the array contains zero is $p = (1-\frac{1}{m})^{kn} \approx e^{-kn/m}$, and so the probability of a false positive $\epsilon$ is equal to: 
+
+$$
+\begin{aligned}
+P ( \forall i .B[ h_i ( u )] \neq 0 ) = \\
+P (B[ h_i ( u )] \neq 0 ) ^ k = \\
+( 1 - P ( B[h_i ( u )] = 0 ) ) ^ k = \\
+( 1 - e^{-kn/m} ) ^ k \quad
+\end{aligned}
+$$
 Fixed the size of the array $m$ and the number of elements in the set $n$, from this formula we can derive an optimal value for the number of hash functions $k_* = \ln 2 \frac{m}{n}$, that implies an error rate $\epsilon_* = (0.6185)^{\frac{m}{n}}$.
 
 ### Various applications
