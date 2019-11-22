@@ -10,6 +10,8 @@ The markdown files are thought to be converted via [Pandoc](https://pandoc.org/)
 cat *.md | pandoc -o ir.pdf
 ```
 
+An updated PDF copy of the notes is automatically generated as an artifact in the [actions](https://github.com/rmassidda/ir-2019/actions) tab.
+
 ## Todo
 
 - [ ] LSH k-means comparison table kind of sucks.
