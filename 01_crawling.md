@@ -82,7 +82,7 @@ Fixed the size of the array $m$ and the number of elements in the set $n$, from 
 The distributed computation of set intersection between two sets $A$ and $B$ can be done by computing the Bloom Filter of the first set, than computing $Q$ as the set of all the $b \in B$ elements that are present according to the bloom filter and then by intersecting $A$ and $Q$, where the advantage is given by the fact $|Q|<|B|$.
 The bit cost of the transmission of the Bloom Filter of $A$ and $Q$ is $\Theta (m_A) + (|A \cap B| + \epsilon|B|)\log |U|$, so it less expensive than sending the whole $A$ set at a cost of $|A|\log{|U|}$.
 
-The distributed computation of approximate set difference can be derived by the previous algorithm, when $A$ can correctly compute the difference via $A-B=A-(A \cap B)$, and $B$ can obtain an approximation via $A-B \approx A - Q$.
+The distributed computation of approximate set difference can be derived by the previous algorithm, when $A$ can correctly compute the difference via $A-B=A-Q$, and $B$ can obtain an approximation via $B-A \approx B - Q$.
 
 Another possibile approach to compute the set difference is using Patricia Trees derived from $A$ and $B$.
 Comparing each node in a top-down fashion, if the node are equals the visit backtracks, otherwise it proceeds to all children, when a leaf is reached then the corresponding element of $B$ is declared to be in $B-A$.
