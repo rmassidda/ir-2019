@@ -35,5 +35,9 @@ $$
 The space occupancy of this technique can be reduced at the cost of introducing approximate results by projecting each sketch into a set of $k$ integers for $L'$ times, and then group them by equal component as in LSH.
 
 ## Cosine distance
-The min-hashing procedure maps a document to a multi-dimensional vector on which to compute similarity.
-Other possible distances can be used, like for example the cosine distance where $L$ random lines are extracted and compared to a vector $v$ representing a set of features in the document.
+Another possible way to compute the sketch of a vector is using the cosine distance.
+Given $L$ random lines, we can compute the $i$-th element of the sketch as the result of the hash function $h_i(p) = \textrm{sign} ( r_i \cdot p )$, where $r_i$ is the $i$-th random line.
+
+Two sketches share the same value iff. the line $r$ doesn't lie in the angle $\alpha$ between the original vectors of the sketches, so the probability of this event is $P(h_i(p)=h_i(q)) = \frac{\pi - \alpha}{\pi} = 1 - \frac{\alpha}{\pi}$.
+
+By dividing the number of not shared components between two sketches, divided by the number of components $L$ we obtain an approximation of $\cos(\alpha)$ for small $\alpha$ angles.

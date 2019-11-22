@@ -28,6 +28,6 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 ## Todo
 
 - [ ] LSH k-means comparison table kind of sucks.
-- [ ] Cosine distance in 03
+- [ ] Cosine distance in 03 (now draft)
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
