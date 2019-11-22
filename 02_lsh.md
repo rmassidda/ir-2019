@@ -11,10 +11,21 @@ This approach is randomized and correct with high probability, also it guarantee
 Given the hamming distance $D(p,q)$ between two binary vectors $p$ and $q$, we define the similarity $s$ as the probability, given an index $i$, that $p[i] = q[i]$, and this is equal to $s = (1 - \frac{D(p,q)}{d})$.
 
 Now consider a set $I$ of $k$ random selected integers in the interval $\{1,\dots,d\}$, we call $h_I(p)$ the projection of $p$ into the $I$ positions.
-The probability that the projections of a pair of vectors are equals is $s^k$.
+The probability that two fixed projections of a pair of vectors are equal is $P(h_I(p)=h_I(q))=s^k$.
 
-Using $L$ different projections we can state that $p$ is similar to $q$ with high probability if $\exists i. h_{I_i}(p)=h_{I_i}(q)$, the probability of this event given any pair of vectors is $1 - (1-s^k)^L$;
-so strictly dependent on the actual similarity $s$, between them.
+Using $L$ different projections we can state that $p$ is similar to $q$ with high probability if $\exists i. h_{I_i}(p)=h_{I_i}(q)$. The probability of this event is:
+
+$$
+\begin{aligned}
+P(p \textrm{ matches } q) = \\
+P ( \exists i. h_{I_i}(p)=h_{I_i}(q) ) = \\
+1 - P ( \forall i. h_{I_i}(p) \neq h_{I_i}(q) ) = \\
+1 - P ( h_{I_i}(p) \neq h_{I_i}(q) ) ^ L = \\
+1 - ( 1 - s^k ) ^ L
+\end{aligned}
+$$
+
+So strictly dependent on the actual similarity $s$, between $p$ and $q$.
 It's possibile to notice that while the $k$ value reduces the false positives, the $L$ reduces the false negatives.
 
 In the practice of grouping similar items this technique is applied by generating $L$ sets $I_i$, then computing for each item in the set its sketch, that is the $L$-ple containing all the $h_{I_i}$ projections.
