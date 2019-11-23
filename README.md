@@ -31,3 +31,4 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [ ] Cosine distance in 03 (now draft)
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
+- [ ] Fancy-hits heuristic in 11
