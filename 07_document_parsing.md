@@ -14,7 +14,7 @@ An easy answer like splitting by space isn't appropriate in the majority of the 
 The language identification is so fundamental because of the different ways to separate words that could become terms.
 
 ## Stop words
-A common practice was to don't index stop words, because they are frequent and meaningful.
+A common practice was to don't index stop words, because they are frequent and meaningless.
 But the current trend is away from doing this, good compression techniques and good query optimization techniques enables the search engine to cheaply store stop words.
 
 ## Normalization

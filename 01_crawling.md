@@ -47,7 +47,7 @@ while ( PriorityQueue not empty )
 To guarantee the desired features of quality and politeness, it is mandatory for a crawler to implement some priority policies in the extraction of the URLs to be parsed.
 In the Mercator architecture this is done by using two set of FIFO queues: the front queues $F$ and the back queues $B$.
 
-After being extracted, a new URL is analyzed with some heuristic able to determine its priority value $i$, that is an integer between $1$ and $|F|$.
+After being extracted, a new URL is analyzed with some heuristics able to determine its priority value $i$, that is an integer between $1$ and $|F|$.
 After this the value is assigned to the $i$-th front queue.
 
 The URLs are then extracted from the front queues in a way biased by the priority of the queue, after this each one of the extracted URLs is pushed into one back queue according to its host.
@@ -128,7 +128,7 @@ else
 ```
 
 ## Parallel Crawling
-The web is to big to be crawled by a single crawler, so the work should be divided avoiding duplication of work.
+The web is too big to be crawled by a single crawler, so the work should be divided avoiding duplication of work.
 Using static assignment is difficult to load balance the URLs assigned to a crawler, also the situation of fault-tolerance where one downloader could be removed or created in a dynamic way makes the static assignment prone to errors.
 
 A possibile solution is the use of the consistent hashing technique.

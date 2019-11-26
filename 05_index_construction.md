@@ -12,7 +12,7 @@ This algorithm sorts $N$ items with a main memory of size $M$ and disk-pages of 
 ## Single-pass in-memory indexing
 Blocked sort-based indexing has excellent scaling properties, but it needs a data structure for mapping terms to termIDs.
 For very large collection, this data structure does not fit into memory.
-A more scalable alternative is SPIMI, that using terms writes each block's dictionary to disk, and the starts a new dictionary for the next block.
+A more scalable alternative is SPIMI, that using terms writes each block's dictionary to disk, and then starts a new dictionary for the next block.
 
 The tokens in the document are analyzed one by one, and the relative posting list is filled using a doubling algorithm.
 When the memory is full the block is written to the disk, and a new one is started.
@@ -25,11 +25,11 @@ Two obvious alternative index implementations are partitioning by terms and part
 
 Partitioning by terms means that each node of the cluster contains a partition of the terms and all of their posting lists.
 A query is routed to the nodes corresponding to its query terms.
-In principle, this allows greater concurreyncy, but in practice this behaviour turns out to be non-trival for multiword queries and load-balancing.
+In principle, this allows greater concurrency, but in practice this behaviour turns out to be non-trivial for multiword queries and load-balancing.
 
 A more common implementation is to partition by documents, each node contains the index for a subset of all documents.
 Each query is distributed to all nodes, with the results from various nodes being merged before presentation to the user.
-This partitioning simpifies the communication, but requires to contact all the nodes to compute any global operation.
+This partitioning simplifies the communication, but requires to contact all the nodes to compute any global operation.
 
 ## Dynamic indexing
 When dealing with dynamic collections new approaches are needed to correctly index them.
@@ -41,4 +41,4 @@ This consolidation process is costly.
 A better solution is provided by logarithmic merge, where a series of exponentially increasing indexes are allocated in the disk and in memory an index is present larger as the smallest on disk.
 If an index $I_i$ becomes too big its content is merged with the successive $I_{i+1}$, and so on if after merging also this index becomes too big, this maintains the invariant about the fact that each one of the indexes on the disk is either empty or full.
 
-Each text participates to no more than $\log \frac{C}{M}$ mergings because at each merge the text moves to a next index and they are at most $\log \frac{C}{M}$, where $C$ is the total size of the collection.
+Each text participates to no more than $\log \frac{C}{M}$ merge operations because at each merge the text moves to a next index and they are at most $\log \frac{C}{M}$, where $C$ is the total size of the collection.

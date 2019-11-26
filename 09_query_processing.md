@@ -5,7 +5,7 @@ A phrase query is a query where multiple words are considered as an atomic unit,
 
 One approach is to consider every pair of consecutive terms in a document as a phrase, to generate biwords.
 Each of these biwords is treated as a vocabulary term, and inserted as an entry in the dictionary.
-The query processing of biword is immediate, furthermore longer phrases can also be processed by breaking them down in overlapping parts and using the AND operator.
+The query processing of biword is immediate, furthermore longer phrases can also be processed by breaking them down in overlapping pairs and using the AND operator.
 Without examining the documents it's not possibile to verify the result of this boolean operation that can possibile cause false positive results.
 To optimize the results it's possibile to use PoS tagging to construct an extended biword index.
 
@@ -28,11 +28,11 @@ The information about the zones can be stored in the dictionary or in the postin
 ## Optimization
 
 ## Tiered index
-Caching can be useful to speedup query resolution, there are two possible and opposite approaches: to chache the query results, exploiting query locality, or to cache pages of posting lists, exploiting term locality.
+Caching can be useful to speedup query resolution, there are two possible and opposite approaches: to cache the query results, exploiting query locality, or to cache pages of posting lists, exploiting term locality.
 
-Anoter possible solution consist in breaking postings up into a hierarchy of lists, sorted by importance.
+Another possible solution consist in breaking postings up into a hierarchy of lists, sorted by importance.
 At query time only the top tier is used, unless it fails to provide a minimum number of documents, if so it recurse onto the lower tier.
 
 ## Skip pointers
-In a skip list the number of skips is an important tradeoff, the more the skips the shorter the spans, it is most likely to skip but lots of comparisons are required to evaluate skip pointer.
-A simple heuristic for posting list of lenght $L$ is to use $\sqrt{L}$ evenly-spaced skip pointers.
+In a skip list the number of skips is an important trade-off, the more the skips the shorter the spans, it is most likely to skip but lots of comparisons are required to evaluate skip pointer.
+A simple heuristic for posting list of length $L$ is to use $\sqrt{L}$ evenly-spaced skip pointers.
