@@ -1,11 +1,11 @@
 # Query Processing
 
-## Phrase queries (2.4)
+## Phrase queries
 A phrase query is a query where multiple words are considered as an atomic unit, to be able to support such queries, it is no longer sufficient for postings lists to be simply lists of documents that contain individual terms.
 
 One approach is to consider every pair of consecutive terms in a document as a phrase, to generate biwords.
 Each of these biwords is treated as a vocabulary term, and inserted as an entry in the dictionary.
-The query processing of biword is immediate, furthermore longer phrases can also be processed by breaking them down in overlapping paris and using the AND operator.
+The query processing of biword is immediate, furthermore longer phrases can also be processed by breaking them down in overlapping parts and using the AND operator.
 Without examining the documents it's not possibile to verify the result of this boolean operation that can possibile cause false positive results.
 To optimize the results it's possibile to use PoS tagging to construct an extended biword index.
 

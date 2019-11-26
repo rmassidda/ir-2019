@@ -51,18 +51,18 @@ After being extracted, a new URL is analyzed with some heuristic able to determi
 After this the value is assigned to the $i$-th front queue.
 
 The URLs are then extracted from the front queues in a way biased by the priority of the queue, after this each one of the extracted URLs is pushed into one back queue according to its host.
-Each of the B back queues contains URLs from a single host, the mapping from hosts to back queues is maintained by an auxiliary table T.
+Each of the back queues B contains URLs from a single host, the mapping from hosts to back queues is maintained by an auxiliary table T.
 If one of the back queues gets empty a new host is immediately reassigned.
 
 The URLs from the back queues are then extracted and inserted in a min-heap.
-This data structure contains one and only one element for each queue and it's ordered by the timestamps $t_e$, that contains the first viable moment to repeat a request to a certain host.
+This data structure contains one and only one element for each queue and it's ordered by the timestamps $t_e$, that represent the first eligible moment to repeat a request to a certain host.
 The crawler main loop extracts the root of the min-heap, waits for the indicated time $t_e$ to expire and then adds the URL to the `AssignedRepository`.
 
 
 ## Bloom Filter
-To check if a page has been parsed or downloaded before a first control can be done on the URL, obviously, given the size of the web graph, storing all the crawled URLs in a dictionary is not a viable option.
+To check if a page has been parsed or downloaded before a first control can be done on the URL, obviously, given the size of the web graph, storing all the crawled URLs in a dictionary is not a option.
 
-A Bloom Filter (1970) is a probabilistic data structure used to check the elements of a set, it ensures a positive result if an element is in the set, but also could provide false positives.
+A Bloom Filter (1970) is a probabilistic data structure used to check the elements of a set, it ensures a positive result if an element is in the set, but could also provide false positives.
 A binary array of size $m$ is created, and then a family of $k$ hash functions is used to map an object to a position in the array.
 To check if a certain element $u$ is in the array is equivalent to the proposition $\land^{k}_{i=1} h_i (u)$.
 
@@ -132,8 +132,8 @@ The web is to big to be crawled by a single crawler, so the work should be divid
 Using static assignment is difficult to load balance the URLs assigned to a crawler, also the situation of fault-tolerance where one downloader could be removed or created in a dynamic way makes the static assignment prone to errors.
 
 A possibile solution is the use of the consistent hashing technique.
-Given two[^1] hashing functions $h_s : \textrm{Server} \rightarrow {m}$ and $h_u : \textrm{URL} \rightarrow {m}$, we use an orientated circular mapping where the items are dynamically partitioned in arcs between the servers and, assuming clockwise orientation, each server needs to communicate only with its successor in case of mutation in the topography.
+Given two[^1] hashing functions $h_s : \textrm{Server} \rightarrow {x}$ and $h_u : \textrm{URL} \rightarrow {x}$, we use an orientated circular mapping where the items are dynamically partitioned in arcs between the servers and, assuming clockwise orientation, each server needs to communicate only with its successor in case of mutation in the topography.
 
-In average each server has assigned $\frac{\textrm{\#servers}}{\textrm{\#items}}$ URLs, it's possibile to prove that this happens with hight probability.
+In average each server of the $m$ server has assigned $\frac{n}{m}$ URLs, it's possibile to prove that this happens with hight probability.
 
 [^1]: The slides of the course mention only one function, also in some of the exercises the same function is used for both objects.

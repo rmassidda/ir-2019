@@ -6,7 +6,7 @@ Notes of the Information Retrieval course taught by prof. [Ferragina](http://pag
 The markdown files are thought to be converted via [Pandoc](https://pandoc.org/).
 
 ```sh
-cat *.md | pandoc -o ir.pdf
+cat *.md | pandoc -o ir-2019.pdf
 ```
 
 An updated PDF copy of the notes is automatically generated as an artifact in the [actions](https://github.com/rmassidda/ir-2019/actions) tab.
@@ -27,8 +27,8 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 
 ## Todo
 
-- [ ] LSH k-means comparison table kind of sucks.
-- [ ] Cosine distance in 03 (now draft)
+- [X] LSH k-means comparison table kind of sucks.
+- [X] Cosine distance in 03 (now draft)
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
 - [ ] Fancy-hits heuristic in 11

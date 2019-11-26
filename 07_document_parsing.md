@@ -10,7 +10,7 @@ A token is an instance of a sequence of characters in some particular document, 
 Each such token is now a candidate for becoming an index entry, that is a term, after further processing.
 
 The major question of the tokenization phase is what are the correct tokens to use?
-An easy answer like splitting by space, or by hyphens, isn't appropriate in the majority of the use cases.
+An easy answer like splitting by space isn't appropriate in the majority of the use cases.
 The language identification is so fundamental because of the different ways to separate words that could become terms.
 
 ## Stop words
@@ -79,9 +79,9 @@ The algorithm works on single, not much long, documents and provides fast and un
 
 Given a set of word delimiters, a set of phrase delimiters and a list of stop words, in the first phase the algorithm splits the document by words, then by phrases and then by stop words: the remaining words are considered candidate keywords
 
-The ordered sequence of candidate keywords is scanned to compute the table of co-occurences where the item $C_{ij}$ counts the number of pairs that contains both the $i$-th and the $j$-th word.
+The ordered sequence of candidate keywords is scanned to compute the table of co-occurences where the item $M_{ij}$ counts the number of pairs that contains both the $i$-th and the $j$-th word.
 Given this table is possible to compute the frequency of a word as $M_{ii}$, and the degree of a word as the sum over its row $\sum_j M_{ij}$.
 We define the score of a word as the ratio $\frac{deg(w)}{freq(w)}$.
 
-A set of adjoining keywords is a candidate if it appears at least twice in the document, if so the score for the new keyboard is the sum of its member keyword scores.
+A set of adjoining keywords is a candidate if it appears at least twice in the document, if so the score for the new keyword is the sum of its member keyword scores.
 Sorting by score enables the user to select the $k$-th most significative keywords.

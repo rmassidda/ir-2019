@@ -16,7 +16,8 @@ A more scalable alternative is SPIMI, that using terms writes each block's dicti
 
 The tokens in the document are analyzed one by one, and the relative posting list is filled using a doubling algorithm.
 When the memory is full the block is written to the disk, and a new one is started.
-The overall algorithm is faster because it doesn't require sorting nor the creation of a term-termID vocabulary.
+At the end of the process the block is merged to generate the full index.
+The overall algorithm is faster because it doesn't require external memory sorting nor the creation of a term-termID vocabulary.
 
 ## Distributed indexing
 When the index dimension becomes to big the only solution is to use distributed indexing algorithms for index construction.
