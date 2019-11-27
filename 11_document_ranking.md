@@ -3,64 +3,75 @@
 By considering the matrix containing the relation of terms and documents, we can consider the $i$-th column as a binary vector representing the $i$-th document.
 Computing the intersection of the terms in two documents, that is counting the number of components both equal to one in the binary vectors, is a not so useful measure of similarity because it does not depend on the size of the sets.
 Two possibile approach to normalize this intersection are the Dice coefficient $D$ and the Jaccard coefficient $J$, that also respect the triangular inequality.
-Even with this measures the importance of a term is not considered.
+An issue with both this measures resides in the fact that the importance of a term is not considered.
 
-## tf-itf
-Taking in account the term frequency $\textrm{tf}_{td}$ could be misleading because of the frequency of stop words, so also the inverted term frequency $idf_t$ has to be considered where $n$ is the number of documents in the indexed collection, while $n_t$ is the number of documents containing the term $t$.
+## tf-idf
+To start a discussion over the importance of a term in a document, a first approach could be counting the number of occurrences of term $t$ in the document $d$, we call this value term frequency $\mathit{tf}_{t,d}$.
+Taking in account only the term frequency could be misleading because of the high frequency of stop words, to balance this situation we can use the inverted document frequency $\mathit{idf}_t = \log\frac{n}{\mathit{df}_t}$, where $n$ is the number of documents in the indexed collection, while $\mathit{df}_t$ is the number of documents in the collection containing the term $t$.
 The product of this two measures is considered as a good weight for a term in a document.
 
 $$
-\begin{aligned}
-w_{td} = tf_{td} \log \frac{n}{n_t}
-\end{aligned}
+w_{t,d} = \mathit{tf_{t,d}} \times \mathit{idf_{t}}
 $$
 
-For example an article will have a big $tf$, compensated by a really small $itf$, and experimentally works in a lot of contexts.
 The weight is zero if the term is not present in the document or if is not significative because it appears in all the documents.
-In this vector space model every column of the matrix represent a document vector, also the query will be considered as a very short documents manageable as a vector in the model.
+In this vector space model every column of the matrix represent a document vector, also the query will be considered as a very short document manageable as a vector in the model.
 
 ## Cosine score
-One idea to compare vectors could be to use the euclidean distance in the space, given that this is also dependent on the length of the vector it's not a good idea.
-Better to use angles, but computing angles in multidimensional space could be hard.
-Computing the cosine of the angle is easier, and also the smaller the angle the nearer to $1$ similar.
+One idea to determine the similarity between vectors could be using the euclidean distance in the space, it should be noticed that this approach is dependent on the length of the vector and so it's not a good idea.
+A better approach could lead to measuring the angle between two vectors, but we have to consider that being in a very high dimensional space the computation will by hard.
+
+Computing the cosine of the angle is easier, so the cosine similarity is:
 $$
 \cos(d,q) = \frac{d \cdot q}{||d||\cdot||q||}
 $$
 
-The computational problem is that a query will have $1$ in very few components, and $0$ in all the other.
-If the document is very well written the algorithm works very well, but it's easy exploitable by spammers using term repetition in a document, afflicting $tf$ but not $itf$.
-
-The whole matrix can't be stored, but we have to store the vector by using inverted lists.
-As seen in phrase queries also the positions of the terms in a document must be stored, computing the tf by summing over the positions (preprocessed and storade with unary/gamma compresison) and the itf using the lenght of the list the computation of a component is immediate.
-
-For every document $d \in D$ scan the terms to reconstruct the vector, this is obviously not possibile.
-Considering that the similarity $d \cdot q$ is a summation over the non-zero values, it's possible to compute the components only on the terms in the query.
-
-```python
-for term in query:
-  for doc in posting[term]:
-    score[d] += w_td * w_tq
-```
-
+If the document is very well written the algorithm works very well, but it's easy exploitable by spammers using term repetition in a document, afflicting $\mathit{tf}$ but not $\mathit{idf}$.
 The vector space solution is useful for bag-of-words queries and it's a clean metaphor for similar-document queries, but it's not a good technique to use with operators.
 
-### Approximate value
-The computation of the cosine distance is costly, so we would like to reduce the computation to a set of documents $A$ much smaller than the collection and then return the top-k docs in $A$ as an approximation of the top-k in the whole collection.
+The whole matrix can't be stored, but we have to store the vector by using inverted lists, also the query vector will be largely sparse we have a lot of space for optimizations.
+The positions of the terms in a document must be stored (possibly compressed), as seen in phrase queries, so the cardinality of the set of positions of a term in a document is $\mathit{tf}$, while the length of the posting list is $\mathit{df}$, so it's immediate the computation of the weight of a term in a document.
+
+Since only the terms included in a query are interesting a possible algorithm initializes an empty vector of scores and then for every term $t$ in the query it retrieves it's posting list after computing it's weight $w_{t,q}$.
+Then for each document $d$ in a posting list, the score $s_d$ is updated as in:
+
+$$
+s_d = s_d + w_{t,d} \times w_{t,q}
+$$
+
+To conclude the algorithm the scores must be normalized using the length of the documents, so $s_d = \frac{s_d}{l_d}$, taking now the top $k$ components returns the top $k$ similar documents to the query.
+
+## Approximate value
+Although the optimization over the sparse vector, the computation of the cosine distance is still costly, so we would like to reduce the computation to a set of documents $A$ much smaller than the collection and then return the top-k docs in $A$ as an approximation of the top-k in the whole collection.
 The same approach is also useful for other (non-cosine) scoring functions.
 
-The first filter has already been applied in the previous optimization, that is considering documents that contains at least one query term.
-This can be taken further by considering only documents containing at least $|Q|-i$ query terms, algorithmically this can be done by set intersection or by scanning and flagging the documents.
+### Index elimination
+For a multiterm query it is clear that we only consider documents containing at least one of the query terms.
+We can take this a step further using additional heuristics:
 
-One problem of this improvement is the fact that all the terms are considered equivalent, and so the presence of articles and so on is then considered.
-This problem can improved by considering only terms with an high idf value.
+- Consider documents containing terms whose idf exceeds a threshold.
+- Consider only documents containing at least $|Q|-i$ query terms.
 
-The champion lists approach assigs to each term its $m$ best documents according their ft-itf metric, to work well empirically must be $m>k$.
+### Champion Lists
+To construct a champion list, each term is preprocessed to find the $m$ best documents according to their tf-idf metric, to work well empirically must be $m>k$, also the value of $m$ could be different for each term according to their importance.
+At query time the computation of the scores is done only on the champion lists and not on the posting list.
 
-We can try to solve geometrically by clustering the documents, for every group of documents a leader is elected and so the query is compared only with the leaders, and consequently with all the documents in the group in the nearest leader.
-An obvious variation considers the nearest $m$ leaders.
+### Fancy-hits
+The fancy-hits heuristic is a variation of the champion list that makes use of an additional scoring scheme, the PageRank.
+In a preprocessing phase the docIDs are assigned decreasing in respect to their PageRank, and also we compute for each term its champion list, called from now on FH, and the list of documents not in FH, called IL.
 
-The fancy-hits heuristic considers an additional scoring scheme: the PageRank.
-Suppose that the score of the document $d$ is given by the summation of the PageRank with the tf-idf score.
-The champion list, here called fancy-list, of a document is sorted by decreasing page rank, also all the other documents in another list are stored by decreasing page rank.
-By construction assing the docIDs in increasing order respect to their PageRank.
-Compte the score of all docs in FH, keep the top-k docs, scans the other list up to a certain threshold is reached.
+At query time first the top-$k$ documents are computed using the cosine similarity algorithm on all the champion list.
+To improve the results the IL list is scanned for each term, computing the score and possibly inserting them into the top-$k$, we can use as a stopping criterion the PageRank becoming smaller than some threshold.
+
+A sophisticated stopping criterion makes use of a value defined as the sum of the tf-idf and the PageRank of a document.
+Taken the minimum document $x$ in the champion list, we can assert that its tf-idf value is anyway greater than any of the documents in the IL list, and so:
+
+$$
+\forall d \in \textrm{IL} . \quad s_d \leq \textrm{tf-idf}_x + \mathit{PageRank}_d
+$$
+
+Since the PageRank is decreasing there will exist an element $\bar{d} \in \textrm{IL}$ such that $s_{\bar{d}} < \textrm{tf-idf}_x$, given that this property will be valid for also all the subsequent values the scanning can be stopped.
+
+### Clustering
+We can try to solve geometrically by clustering the documents, first of all $\sqrt n$ leaders are randomly extracted between all the documents and all the remaining documents are assigned to the nearest leader.
+At query time the result is obtained by seeking the $k$ nearest docs from among the followers of the nearest leader, an obvious variation considers the nearest $m$ leaders.

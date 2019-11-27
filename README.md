@@ -24,11 +24,12 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [Search](08_search.md)
 - [Query Processing](09_query_processing.md)
 - [Posting Compression](10_posting_compression.md)
+- [Document Ranking](11_document_ranking.md)
 
 ## Todo
 
-- [X] LSH k-means comparison table kind of sucks.
-- [X] Cosine distance in 03 (now draft)
+- [x] LSH k-means comparison table kind of sucks.
+- [x] Cosine distance in 03 (now draft)
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
-- [ ] Fancy-hits heuristic in 11
+- [x] Fancy-hits heuristic in 11
