@@ -27,8 +27,8 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 
 ## Todo
 
-- [X] LSH k-means comparison table kind of sucks.
-- [X] Cosine distance in 03 (now draft)
+- [x] LSH k-means comparison table kind of sucks.
+- [x] Cosine distance in 03 (now draft)
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
-- [ ] Fancy-hits heuristic in 11
+- [x] Fancy-hits heuristic in 11
