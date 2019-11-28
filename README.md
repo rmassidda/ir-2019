@@ -33,3 +33,4 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [x] Copy block in 04
 - [ ] MapReduce in distributed indexing
 - [x] Fancy-hits heuristic in 11
+- [ ] Confusing WAND description
