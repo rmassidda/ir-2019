@@ -25,6 +25,7 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [Query Processing](09_query_processing.md)
 - [Posting Compression](10_posting_compression.md)
 - [Document Ranking](11_document_ranking.md)
+- [Web ranking](12_web_ranking.md)
 
 ## Todo
 
@@ -34,3 +35,4 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [ ] MapReduce in distributed indexing
 - [x] Fancy-hits heuristic in 11
 - [ ] Confusing WAND description
+- [ ] Personalized PageRank in 12
