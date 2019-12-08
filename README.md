@@ -27,6 +27,7 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [Document Ranking](11_document_ranking.md)
 - [Web ranking](12_web_ranking.md)
 - [Packing to fewer dimensions](13_packing.md)
+- [Semantic annotation](14_semantic_annotation.md)
 
 ## Todo
 
@@ -39,3 +40,4 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [ ] Personalized PageRank in 12
 - [ ] Eigenvalues ↔ SingularValues conditions in 13
 - [ ] Proof of the cosine-distance bound in 13
+- [ ] Wiser presentation in 14
