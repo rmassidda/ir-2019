@@ -9,12 +9,12 @@ The query processing of biword is immediate, furthermore longer phrases can also
 Without examining the documents it's not possibile to verify the result of this boolean operation that can possibile cause false positive results.
 To optimize the results it's possibile to use PoS tagging to construct an extended biword index.
 
-Another approach consist in storing in the postings of a term, other than the documents is also stored the position in which that term occurs.
+Another approach consists in storing in the postings list also the position in which the term occurs.
 Other than for phrase queries this approach can be used to solve free text queries, in which the results are biased according to the close proximity of each other.
 
 The combination of these two schemes is often used in real word search engine.
 
-Usually when dealing with phrase queries the search engine makes use of an iterative process where first tries to run the query as provided by the user, if the results are too many it tries to run multiple smaller queries and join them.
+Usually when dealing with phrase queries the search engine makes use of an iterative process, called soft-AND, where first tries to run the query as provided by the user, if the results are too many it tries to run multiple smaller queries and join them.
 If even in this case the set of results is too small the search engine must use other techniques, like vector space querying, to resolve the query.
 
 ## Zone indexes

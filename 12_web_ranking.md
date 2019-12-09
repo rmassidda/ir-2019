@@ -1,6 +1,6 @@
 # Web ranking
 Considering the web graph we are interested in finding a mechanism for ranking the nodes, representing the pages.
-Under the assumption that an hyperlink between pages denotes author perceived relevance, it's possible to model the web graph using a random walker that reached any pages randomly chose where to go next, analyzing the random walker behaviour leads to the most visited pages that are so considered the most important.
+Under the assumption that an hyperlink between pages denotes author perceived relevance, it's possible to model the web graph using a random walker that given a page randomly choose where to go next, analyzing the random walker behaviour leads to the most visited pages that are so considered the most important.
 This can be done by modelling the web graph as a Markov process, to do so we need to get the transition probability matrix $P$ from the adjacency matrix $A$, as in:
 
 $$

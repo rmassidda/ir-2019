@@ -18,16 +18,16 @@ The weight is zero if the term is not present in the document or if is not signi
 In this vector space model every column of the matrix represent a document vector, also the query will be considered as a very short document manageable as a vector in the model.
 
 ## Cosine score
-One idea to determine the similarity between vectors could be using the euclidean distance in the space, it should be noticed that this approach is dependent on the length of the vector and so it's not a good idea.
+One idea to determine the similarity between the weight vectors could be using the euclidean distance in the space, it should be noticed that this approach is dependent on the length of the vector and so it's not a good idea.
 A better approach could lead to measuring the angle between two vectors, but we have to consider that being in a very high dimensional space the computation will by hard.
 
 Computing the cosine of the angle is easier, so the cosine similarity is:
 $$
-\cos(d,q) = \frac{d \cdot q}{||d||\cdot||q||}
+\cos(d,q) = \frac{\langle d , q \rangle}{||d||\cdot||q||}
 $$
 
 If the document is very well written the algorithm works very well, but it's easy exploitable by spammers using term repetition in a document, afflicting $\mathit{tf}$ but not $\mathit{idf}$.
-The vector space solution is useful for bag-of-words queries and it's a clean metaphor for similar-document queries, but it's not a good technique to use with operators.
+The vector space solution is useful for bag-of-words queries and it's a good metaphor for similar-document queries, but it's not a good technique to use with operators.
 
 The whole matrix can't be stored, but we have to store the vector by using inverted lists, also the query vector will be largely sparse we have a lot of space for optimizations.
 The positions of the terms in a document must be stored (possibly compressed), as seen in phrase queries, so the cardinality of the set of positions of a term in a document is $\mathit{tf}$, while the length of the posting list is $\mathit{df}$, so it's immediate the computation of the weight of a term in a document.
@@ -60,8 +60,8 @@ At query time the computation of the scores is done only on the champion lists a
 The fancy-hits heuristic is a variation of the champion list that makes use of an additional scoring scheme, the PageRank.
 In a preprocessing phase the docIDs are assigned decreasing in respect to their PageRank, and also we compute for each term its champion list, called from now on FH, and the list of documents not in FH, called IL.
 
-At query time first the top-$k$ documents are computed using the cosine similarity algorithm on all the champion list.
-To improve the results the IL list is scanned for each term, computing the score and possibly inserting them into the top-$k$, we can use as a stopping criterion the PageRank becoming smaller than some threshold.
+At query time the same process is repeated for each term, first thing the score is computed for all the documents in the fancy-hits list.
+Then to improve the results the IL list is scanned, computing the score up to a certain stopping criterion.
 
 A sophisticated stopping criterion makes use of a value defined as the sum of the tf-idf and the PageRank of a document.
 Taken the minimum document $x$ in the champion list, we can assert that its tf-idf value is anyway greater than any of the documents in the IL list, and so:
@@ -70,7 +70,7 @@ $$
 \forall d \in \textrm{IL} . \quad s_d \leq \textrm{tf-idf}_x + \mathit{PageRank}_d
 $$
 
-Since the PageRank is decreasing there will exist an element $\bar{d} \in \textrm{IL}$ such that $s_{\bar{d}} < \textrm{tf-idf}_x$, given that this property will be valid for also all the subsequent values the scanning can be stopped.
+Since the PageRank is decreasing there will exist an element $\bar{d} \in \textrm{IL}$ such that $s_{\bar{d}} < \textrm{tf-idf}_x$, given that this property will be valid for also all the subsequent values the scan can be stopped.
 
 ### Clustering
 We can try to solve geometrically by clustering the documents, first of all $\sqrt n$ leaders are randomly extracted between all the documents and all the remaining documents are assigned to the nearest leader.
@@ -82,7 +82,7 @@ The simplest strategy is to find all the documents interested by the query, comp
 This is obviously too costly as described in the reasons that introduced the approximate retrieval techniques, we want then to find an admissible heuristic approach the avoid computing the score on documents that won't make it into the top-$K$.
 
 ### WAND
-The WAND technique is a pruning method which uses a max heap over the real documents scores.
+The WAND technique is a pruning method which uses a heap over the real documents scores.
 We could prove that the document IDs in the heap at the end of the process are the exact top-K.
 The algorithm follows a branch and bound approach, we maintain a running threshold $\Theta$ score, pruning away all the documents surely under the threshold and computing the exact scores only for the remaining.
 
@@ -97,7 +97,7 @@ The threshold $\Theta$ is initialized to 0, and we want it always to hold that $
 The algorithm parallel scans the postings list, at the first step of a generic iteration the terms are sorted according to the value of the document ID pointed. 
 For each pointer we sum the terms upper bounds, finding the maximum score that a document can possibly obtain, the first document that possibly could have a score greater than the threshold is taken as pivot.
 All the documents between the previous pointers and the pivot have no possibility to enter the top-$K$, so their score computation is skipped.
-If the pivot is present in enough postings its score is computed, and if it's actually greater than the threshold it's inserted in the max-heap.
+If the pivot is present in enough postings its score is computed, and if it's actually greater than the threshold it's inserted in the heap.
 If a document enters in the top-$K$ the smallest has to exit, and the threshold is updated to the new smallest member.
 
 In practice we can reduce score computation of the 90%.
