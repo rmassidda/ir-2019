@@ -6,7 +6,7 @@ Notes of the Information Retrieval course taught by prof. [Ferragina](http://pag
 The markdown files are thought to be converted via [Pandoc](https://pandoc.org/).
 
 ```sh
-sed -e '$s/$/\n/' -s ??_*.md | pandoc -o ir-2019.pdf
+pandoc ??_*.md -o ir-2019.pdf
 ```
 
 An updated PDF copy of the notes is automatically generated as an artifact in the [actions](https://github.com/rmassidda/ir-2019/actions) tab.

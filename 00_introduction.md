@@ -1,3 +1,10 @@
+---
+title: 'Information Retrieval'
+classoption:
+  - titlepage
+toc: true
+---
+\newpage
 # Introduction
 
 Information Retrieval (IR) is finding material of unstructured nature that satisfies an information need from within large collections.

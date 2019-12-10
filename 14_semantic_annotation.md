@@ -3,7 +3,7 @@ The vector space model described up to here is mainly term-based, and it's so su
 more specifically two documents are considered similar only if the share some words.
 Using topic-based annotation we pursue the goal to construct algorithms that are able to resolve an information need, overcoming this issues.
 
-An alternative approach consist in using graphs to organize the informations of a knowledge base, we will refer to this concept as knowledge graph[^1].
+An alternative approach consist in using graphs to organize the informations of a knowledge base, we will refer to this concept as knowledge graph[^5].
 In the graph each a node is an entity representing a semantic unit, the edges can also be labelled indicating the kind of relation between the concepts.
 
 Wikipedia is one of the simplest possible knowledge graphs, this is because the links are not typed but signify only a generic relation.
@@ -12,7 +12,7 @@ By collecting of all these pairs relative to a fixed page, we can extract the co
 Another useful kind of information that can describe a Wikipedia page is made of the categories it appears into, forming a directed acyclic graph.
 
 ## TagMe
-We propose the definition of TagMe, as it's presented on its live online implementation[^2]:
+We propose the definition of TagMe, as it's presented on its live online implementation[^6]:
 
 > TAGME is a powerful tool that is able to identify on-the-fly meaningful short-phrases (called "spots") in an unstructured text and link them to a pertinent Wikipedia page in a fast and effective way.
 
@@ -40,5 +40,5 @@ Empirical values used are $\tau = 2\%$ and $\epsilon=30\%$.
 
 Another possible mechanism that can be used in the process of disambiguation is considering the words surrounding the anchor, trying to match them with the words in the documents supposedly pointed by the anchor.
 
-[^1]: Knowledge Graph is the name given by Google to its own implementation. Given its diffusion and the simplicity of the name, the term is often used as a synecdoche to refer the general concept.
-[^2]: [https://tagme.d4science.org/tagme/](https://tagme.d4science.org/tagme/)
+[^5]: Knowledge Graph is the name given by Google to its own implementation. Given its diffusion and the simplicity of the name, the term is often used as a synecdoche to refer the general concept.
+[^6]: [https://tagme.d4science.org/tagme/](https://tagme.d4science.org/tagme/)
