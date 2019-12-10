@@ -1,35 +1,37 @@
 # Document ranking
-
 By considering the matrix containing the relation of terms and documents, we can consider the $i$-th column as a binary vector representing the $i$-th document.
 Computing the intersection of the terms in two documents, that is counting the number of components both equal to one in the binary vectors, is a not so useful measure of similarity because it does not depend on the size of the sets.
-Two possibile approach to normalize this intersection are the Dice coefficient $D$ and the Jaccard coefficient $J$, that also respect the triangular inequality.
-An issue with both this measures resides in the fact that the importance of a term is not considered.
+Two possible approaches to normalize this intersection are the Dice coefficient $D = 2\frac{|X\cap Y|}{|X| + |Y|}$ and the Jaccard coefficient $J = \frac{|X \cap Y|}{|X \cup Y|}$, that also respect the triangular inequality.
+An issue with both these measures resides in the fact that the importance of a term is not considered.
 
 ## tf-idf
 To start a discussion over the importance of a term in a document, a first approach could be counting the number of occurrences of term $t$ in the document $d$, we call this value term frequency $\mathit{tf}_{t,d}$.
-Taking in account only the term frequency could be misleading because of the high frequency of stop words, to balance this situation we can use the inverted document frequency $\mathit{idf}_t = \log\frac{n}{\mathit{df}_t}$, where $n$ is the number of documents in the indexed collection, while $\mathit{df}_t$ is the number of documents in the collection containing the term $t$.
-The product of this two measures is considered as a good weight for a term in a document.
+Taking into account only the term frequency could be misleading because of the high frequency of stop words, to balance this situation we can use the inverted document frequency $\mathit{idf}_t = \log\frac{n}{\mathit{df}_t}$, where $n$ is the number of documents in the indexed collection, while $\mathit{df}_t$ is the number of documents in the collection containing the term $t$.
+The product of these two measures is considered a good weight for a term in a document.
 
 $$
 w_{t,d} = \mathit{tf_{t,d}} \times \mathit{idf_{t}}
 $$
 
-The weight is zero if the term is not present in the document or if is not significative because it appears in all the documents.
-In this vector space model every column of the matrix represent a document vector, also the query will be considered as a very short document manageable as a vector in the model.
+The weight is zero if the term is not present in the document or if is not significative because it appears in most of the documents.
+By computing the weights for all the entries in a term-document matrix we are able to represent a document as a real valued vector, also the query will be considered as a very short document manageable in this vector space model.
 
 ## Cosine score
 One idea to determine the similarity between the weight vectors could be using the euclidean distance in the space, it should be noticed that this approach is dependent on the length of the vector and so it's not a good idea.
-A better approach could lead to measuring the angle between two vectors, but we have to consider that being in a very high dimensional space the computation will by hard.
+A better approach could lead to measure the angle between two vectors, but we have to consider that being in a very high dimensional space the computation will be hard.
 
-Computing the cosine of the angle is easier, so the cosine similarity is:
+Computing the cosine of the angle is easier, and it is also a good similarity measure, considering that the document vectors are positive definite.
+The cosine of the angle between two document vectors can be computed as:
 $$
 \cos(d,q) = \frac{\langle d , q \rangle}{||d||\cdot||q||}
 $$
 
+It should be noticed that if the vectors $d$ and $q$ are already normalized the computation of the cosine it's reduced to the dot product only.
+
 If the document is very well written the algorithm works very well, but it's easy exploitable by spammers using term repetition in a document, afflicting $\mathit{tf}$ but not $\mathit{idf}$.
 The vector space solution is useful for bag-of-words queries and it's a good metaphor for similar-document queries, but it's not a good technique to use with operators.
 
-The whole matrix can't be stored, but we have to store the vector by using inverted lists, also the query vector will be largely sparse we have a lot of space for optimizations.
+The whole matrix can't be stored because of space issues, but we can store the vector by using inverted lists, also the query vector will be largely sparse we have a lot of space for optimizations.
 The positions of the terms in a document must be stored (possibly compressed), as seen in phrase queries, so the cardinality of the set of positions of a term in a document is $\mathit{tf}$, while the length of the posting list is $\mathit{df}$, so it's immediate the computation of the weight of a term in a document.
 
 Since only the terms included in a query are interesting a possible algorithm initializes an empty vector of scores and then for every term $t$ in the query it retrieves it's posting list after computing it's weight $w_{t,q}$.
@@ -58,7 +60,7 @@ At query time the computation of the scores is done only on the champion lists a
 
 ### Fancy-hits
 The fancy-hits heuristic is a variation of the champion list that makes use of an additional scoring scheme, the PageRank.
-In a preprocessing phase the docIDs are assigned decreasing in respect to their PageRank, and also we compute for each term its champion list, called from now on FH, and the list of documents not in FH, called IL.
+In a preprocessing phase the docIDs are assigned decreasingly with respect to their PageRank, and also we compute for each term its champion list, called from now on FH, and the list of documents not in FH, called IL.
 
 At query time the same process is repeated for each term, first thing the score is computed for all the documents in the fancy-hits list.
 Then to improve the results the IL list is scanned, computing the score up to a certain stopping criterion.

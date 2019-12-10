@@ -10,7 +10,7 @@ The decomposition creates a new smaller vector space, allowing to faster handle 
 
 From the matrix $A$ we generate a term-term correlation matrix $T = A A^T$ and a document-document correlation matrix $D = A^T A$.
 We can notice that $T_{i,j} = \langle t_i, t_j \rangle$ representing in our vector space model the similarity between the terms $t_i$ and $t_j$, the same can be argued about $D_{i,j}$ in respect to the documents.
-Suppose that the matrix $A$ had a rank $r \leq m,n$, we can now define $U$ as the matrix containing the $r$ linearly independent eigenvectors of $T$, and $V$ as the same matrix in respect to $D$.
+Suppose that the matrix $A$ had a rank $r \leq m,n$, we can now define $U$ as the matrix containing the $r$ linearly independent eigenvectors of $T$, and $V$ as the same matrix with respect to $D$.
 We have now all the necessary bricks to construct the SVD decomposition of $A = U S V^T$, where $S$ is a diagonal matrix containing in decreasing order the eigenvalues of A[^4].
 
 By taking $k \ll r$ we can select the $k$ biggest eigenvalues and their relative eigenvectors, reducing all the three matrices needed for the SVD and computing so $A_k = U_k S_k V_k^T$.
@@ -39,7 +39,7 @@ $$
 We can further investing the meaning of the concepts by noting that $(U_k)_{i,j}$ is the strength of the association between the term $t_i$ and the concept $t_j$, the same holds for $V_k$ and the document $d_i$.
 
 ## Random projection
-Another approach to reduce the dimensionality of the document vectors consist in extracting a random number of features.
+Another approach to reduce the dimensionality of the document vectors consists in extracting a random number of features.
 
 The Johnson-Linderstrauss lemma can be used to bound the error in computing the euclidean distance between two randomly projected vectors.
 Given a set $P$ of $n$ points in $m$-dimensions and $\epsilon>0$, there exists a projection function $f \colon \mathbb{R}^m \to \mathbb{R}^k$, where $k = O(\epsilon^2\log n)$, such that $\forall u,v \in P$ it holds

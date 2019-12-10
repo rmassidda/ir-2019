@@ -40,7 +40,7 @@ $$
 r(i) = \alpha \sum_{j \in B(i)} \frac{r(j)}{\#out(j)} + (1-\alpha) \frac{1}{N}
 $$
 
-The computation of this eigenvector is obviously extremely costly, and it's in practice done by extracting a random distribution and applying it to the augmented matrix $P^\star$ using the power law up to obtaining $r \approx x_{2^k} = x_0 P_\star^{2^k}$ for $k \approx 7$.
+The computation of this eigenvector is obviously extremely costly, and it's in practice done by extracting a random distribution and applying it to the augmented matrix $P^\star$ using the power law up to obtain $r \approx x_{2^k} = x_0 P_\star^{2^k}$ for $k \approx 7$.
 This is done by periodically preprocessing the web graph and using at query time the computed PageRank.
 
 ### Personalized PageRank
