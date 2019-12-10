@@ -1,14 +1,14 @@
 # Semantic annotation
-The vector space model described up to here is mainly term-based, and it's so subject to issues derived from polysemy and synonymy;
-more specifically two documents are considered similar only if the share some words.
-Using topic-based annotation we pursue the goal to construct algorithms that are able to resolve an information need, overcoming this issues.
+The vector space model described up to here is mainly term-based, and it's too much subject to issues derived from polysemy and synonymy;
+more specifically two documents are considered similar only if they share some words.
+Using topic-based annotation we pursue the goal to construct algorithms that are able to resolve an information need, overcoming these issues.
 
 An alternative approach consist in using graphs to organize the informations of a knowledge base, we will refer to this concept as knowledge graph[^5].
-In the graph each a node is an entity representing a semantic unit, the edges can also be labelled indicating the kind of relation between the concepts.
+In the graph each node is an entity representing a semantic unit, the edges can also be labelled indicating the kind of relation between the concepts.
 
 Wikipedia is one of the simplest possible knowledge graphs, this is because the links are not typed but signify only a generic relation.
-The anchor includes a text that possibly different with the name of the entity pointed, this pair of strings constitutes a mention-topic pair.
-By collecting of all these pairs relative to a fixed page, we can extract the common sense, that is how the people refer to a certain topic.
+The anchor includes a text that possibly differs with the name of the entity pointed, this pair of strings constitutes a mention-topic pair.
+By collecting all of these pairs relative to a fixed page, we can extract the common sense, that is how the people refer to a certain topic.
 Another useful kind of information that can describe a Wikipedia page is made of the categories it appears into, forming a directed acyclic graph.
 
 ## TagMe
