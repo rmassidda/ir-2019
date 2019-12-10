@@ -125,7 +125,7 @@ We are still in the vector space model, so the documents and the query are vecto
 In the Rocchio algorithm the query $q$ it's updated by summing the relevant documents $D_r$ and subtracting the non relevant ones $D_n$.
 
 $$
-q = \alpha q + \frac{\beta}{|D_r|} \sum_{d \in D_n} d - \frac{\gamma}{|D_n|} \sum_{d \in D_n} d
+q = \alpha q + \frac{\beta}{|D_r|} \sum_{d \in D_r} d - \frac{\gamma}{|D_n|} \sum_{d \in D_n} d
 $$
 
 The parameter $\alpha, \beta, \gamma$ are used to control the balance between trusting the query, trusting the relevant documents and not trusting the nonrelevant ones.
