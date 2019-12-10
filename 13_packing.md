@@ -42,7 +42,7 @@ We can further investing the meaning of the concepts by noting that $(U_k)_{i,j}
 Another approach to reduce the dimensionality of the document vectors consists in extracting a random number of features.
 
 The Johnson-Linderstrauss lemma can be used to bound the error in computing the euclidean distance between two randomly projected vectors.
-Given a set $P$ of $n$ points in $m$-dimensions and $\epsilon>0$, there exists a projection function $f \colon \mathbb{R}^m \to \mathbb{R}^k$, where $k = O(\epsilon^2\log n)$, such that $\forall u,v \in P$ it holds
+Given a set $P$ of $n$ points in $m$-dimensions and $\epsilon>0$, there exists a projection function $f \colon \mathbb{R}^m \to \mathbb{R}^k$, where $k = O(\epsilon^{-2}\log n)$, such that $\forall u,v \in P$ it holds
 
 $$
 (1 - \epsilon)\|u-v\|^2 \leq \|f(u)-f(v)\|^2 \leq (1+\epsilon)\|u-v\|^2
