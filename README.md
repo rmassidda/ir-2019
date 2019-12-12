@@ -38,7 +38,7 @@ A not-surely-updated PDF copy is by the way included in the repository as `ir-20
 - [x] Fancy-hits heuristic in 11
 - [ ] Skip Pointers with known distribution in 10
 - [ ] Confusing WAND description
-- [ ] Personalized PageRank in 12
+- [x] Personalized PageRank in 12
 - [ ] Eigenvalues ↔ SingularValues conditions in 13
 - [ ] Proof of the cosine-distance bound in 13
 - [ ] Wiser presentation in 14
