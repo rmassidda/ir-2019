@@ -4,14 +4,14 @@ In the vector space model we already argued that the computation of the similari
 We want to discuss how to speedup the cosine similarity with two techniques that are usually used subsequently, first reducing the number of dimensions by random projection, and then by further reducing via LSI.
 
 ## LSI
-The Latent Semantic Index is a data-dependent solution that creates a $k$-dim subspace by eliminating redundant axes by pulling together related dimension, aiming to resolve also synonymy and polysemy issues.
+The Latent Semantic Index is a data-dependent solution that creates a $k$-dim subspace by eliminating redundant axes by pulling together related dimensions, aiming to resolve also synonymy and polysemy issues.
 To reduce the matrix $A$ the documents are pre-processed by using a linear algebra technique called Singular Value Decomposition (SVD).
 The decomposition creates a new smaller vector space, allowing to faster handle queries.
 
 From the matrix $A$ we generate a term-term correlation matrix $T = A A^T$ and a document-document correlation matrix $D = A^T A$.
 We can notice that $T_{i,j} = \langle t_i, t_j \rangle$ representing in our vector space model the similarity between the terms $t_i$ and $t_j$, the same can be argued about $D_{i,j}$ in respect to the documents.
 Suppose that the matrix $A$ had a rank $r \leq m,n$, we can now define $U$ as the matrix containing the $r$ linearly independent eigenvectors of $T$, and $V$ as the same matrix with respect to $D$.
-We have now all the necessary bricks to construct the SVD decomposition of $A = U S V^T$, where $S$ is a diagonal matrix containing in decreasing order the eigenvalues of A[^4].
+We have now all the necessary bricks to construct the SVD decomposition of $A = U S V^T$, where $S$ is a diagonal matrix containing in decreasing order the eigenvalues[^4] of A.
 
 By taking $k \ll r$ we can select the $k$ biggest eigenvalues and their relative eigenvectors, reducing all the three matrices needed for the SVD and computing so $A_k = U_k S_k V_k^T$.
 $A_k$ is provable as the best $k$-rank approximation of $A$, that is:

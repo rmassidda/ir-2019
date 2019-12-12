@@ -1,7 +1,8 @@
 # Query Processing
 
 ## Phrase queries
-A phrase query is a query where multiple words are considered as an atomic unit, to be able to support such queries, it is no longer sufficient for postings lists to be simply lists of documents that contain individual terms.
+A phrase query is a query where multiple words are considered as an atomic unit.
+To be able to support such queries, it is no longer sufficient for postings lists to be simply lists of documents that contain individual terms.
 
 One approach is to consider every pair of consecutive terms in a document as a phrase, to generate biwords.
 Each of these biwords is treated as a vocabulary term, and inserted as an entry in the dictionary.

@@ -65,14 +65,15 @@ In a preprocessing phase the docIDs are assigned decreasingly with respect to th
 At query time the same process is repeated for each term, first thing the score is computed for all the documents in the fancy-hits list.
 Then to improve the results the IL list is scanned, computing the score up to a certain stopping criterion.
 
-A sophisticated stopping criterion makes use of a value defined as the sum of the tf-idf and the PageRank of a document.
-Taken the minimum document $x$ in the champion list, we can assert that its tf-idf value is anyway greater than any of the documents in the IL list, and so:
+A sophisticated stopping criterion makes use of a value $c_d = \textrm{tf-idf}_d + \mathit{PageRank}_d$.
+Taken the minimum document $x$ in the champion list, we can assert that its tf-idf value is anyway greater than the one of any of the documents in the IL list, and so:
 
 $$
-\forall d \in \textrm{IL} . \quad s_d \leq \textrm{tf-idf}_x + \mathit{PageRank}_d
+\forall d \in \textrm{IL} . \quad c_d \leq \textrm{tf-idf}_x + \mathit{PageRank}_d
 $$
 
-Since the PageRank is decreasing there will exist an element $\bar{d} \in \textrm{IL}$ such that $s_{\bar{d}} < \textrm{tf-idf}_x$, given that this property will be valid for also all the subsequent values the scan can be stopped.
+Since the PageRank is decreasing we can reasonably assume that there will exist an element $\bar{d} \in \textrm{IL}$ such that $c_{\bar{d}} < \textrm{tf-idf}_x$.
+Given that this property will be valid for also all the subsequent values the scan can be stopped.
 
 ### Clustering
 We can try to solve geometrically by clustering the documents, first of all $\sqrt n$ leaders are randomly extracted between all the documents and all the remaining documents are assigned to the nearest leader.
@@ -116,7 +117,7 @@ Otherwise we have to compute the actual score and continue as the original algor
 The idea of relevance feedback is to involve the user in the information retrieval process so as to improve the final result set.
 This idea was faulty when first created in the 60s, but it's now getting interest because of the conversational queries where the user gives constant feedback.
 
-The basic procedure consists in return in an iterative fashion a certain number of results, then asking to mark some of the returned documents as relevant or non relevant, the system is able now to refine the original query and so improve the result set.
+The basic procedure returns in an iterative fashion a certain number of results, asking then to mark some of the returned documents as relevant or non relevant, the system is now able to refine the original query and so to improve the result set.
 At the time the relevant/irrelevant documents where chosen by hand.
 The user should spend a certain amount of time by marking the results, also the final result will depend on the user choices, but also it's biased by the set returned by the search engine.
 
