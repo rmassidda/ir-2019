@@ -34,7 +34,7 @@ $$
 
 Where $C(b)$ is the candidate set of pages for the mention $b$.
 
-The constraint of having only two anchors can be relaxed, in the case of multiple mentions we can average over the scores of all the possibile pairs of anchors.
+The constraint of having only two anchors can be relaxed, in the case of multiple mentions we can average over the scores of all the possible pairs of anchors.
 Using the results of the scoring system the top-$\epsilon$ are returned, and if the set is still to big or the results are uncertain we can filter again using the commonness indicator.
 Empirical values used are $\tau = 2\%$ and $\epsilon=30\%$.
 

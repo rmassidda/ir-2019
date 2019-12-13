@@ -3,7 +3,7 @@ In data analysis a frequent issue is, given a set $S$ of items, each one with $d
 The similarity is a function that, taken two items, returns a value in the interval $[0,1]$.
 
 The brute-force approach is not useful because of the practically infinite number of possible groups, even limiting the group size to a constant $L$ requires a huge amount of computational power.
-Introducing a certain level of approximation it's possibile to consider a clustering algorithm like the famous machine learning algorithm K-means.
+Introducing a certain level of approximation it's possible to consider a clustering algorithm like the famous machine learning algorithm K-means.
 
 In k-means, fixed a number of $k$ clusters are fixed $k$ random points.
 Until convergence the points are assigned to the nearest centroid that are then recomputed.
@@ -29,7 +29,7 @@ P ( \exists i. h_{I_i}(p)=h_{I_i}(q) ) = \\
 $$
 
 So strictly dependent on the actual similarity $s$, between $p$ and $q$.
-It's possibile to notice that while the $k$ value reduces the false positives, the $L$ reduces the false negatives.
+It's possible to notice that while the $k$ value reduces the false positives, the $L$ reduces the false negatives.
 
 In the practice of grouping similar items this technique is applied by generating $L$ sets $I_i$, then computing for each item in the set its sketch, that is the $L$-ple containing all the $h_{I_i}$ projections.
 Generating a graph of items where each node has an edge with any node with at least one equal projection in the sketch, permit to define the groups as the connected components in the graph.

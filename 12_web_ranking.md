@@ -44,7 +44,7 @@ The computation of this eigenvector is obviously extremely costly, and it's in p
 This is done by periodically preprocessing the web graph and using at query time the computed PageRank.
 
 ### Personalized PageRank
-A possibile variation on the original PageRank algorithm can be obtained by biasing the teleport step in the direction of a certain subset $S$ of pages, without considering the whole web graph.
+A possible variation on the original PageRank algorithm can be obtained by biasing the teleport step in the direction of a certain subset $S$ of pages, without considering the whole web graph.
 This can be done by simply mutating the $e$ vector with a preference vector which jumps to preferred pages.
 
 $$

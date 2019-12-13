@@ -7,8 +7,8 @@ To be able to support such queries, it is no longer sufficient for postings list
 One approach is to consider every pair of consecutive terms in a document as a phrase, to generate biwords.
 Each of these biwords is treated as a vocabulary term, and inserted as an entry in the dictionary.
 The query processing of a two-word phrase is immediate, furthermore longer phrases can also be processed by breaking them down in overlapping pairs and using the AND operator.
-Without examining the documents it's not possibile to verify the result of this boolean operation, that can possibile cause false positive results.
-To optimize the results it's possibile to use PoS tagging to construct an extended biwords index.
+Without examining the documents it's not possible to verify the result of this boolean operation, that can possible cause false positive results.
+To optimize the results it's possible to use PoS tagging to construct an extended biwords index.
 
 Another approach consists in storing in the postings list also the position in which the term occurs.
 Other than for phrase queries this approach can be used to solve free text queries, in which the results are biased according to the close proximity of each other.

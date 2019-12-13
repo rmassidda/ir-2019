@@ -11,8 +11,8 @@ The decompression reverses this process, by applying the sorted triplets to the 
 
 ## Z-delta compression
 This algorithm is used to compress a new file $f_n$ by using another known file $f_k$.
-Reprising the idea of the LZ77 algorithm the file $f_k$ and $f_n$ are concatenated, then by scanning from $f_n$ the set of triplets $f_d$ is generated, it's possibile to prove that $f_d$ it's an optimal coverage, contaning the minimal number of triplets.
-Now it's possibile to obtain $f_n$ concatenating $f_k$ to the empty string $\epsilon$ and then by applying the triplets as in the LZ77 algorithm.
+Reprising the idea of the LZ77 algorithm the file $f_k$ and $f_n$ are concatenated, then by scanning from $f_n$ the set of triplets $f_d$ is generated, it's possible to prove that $f_d$ it's an optimal coverage, contaning the minimal number of triplets.
+Now it's possible to obtain $f_n$ concatenating $f_k$ to the empty string $\epsilon$ and then by applying the triplets as in the LZ77 algorithm.
 
 The Z-delta algorithm can also be used to compress a cluster of files by constructing a graph where all the files are represented by a node.
 Any directed edge $<i,j>$ is weighted by the number of triples needed to compress $f_j$ using $f_i$ as common knowledge.

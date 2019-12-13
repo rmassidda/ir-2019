@@ -1,7 +1,7 @@
 # Crawling
 
 Web crawling is the process by which we gather pages from the Web graph to index them and support a search engine.
-It is possibile to recognize different features that a web crawler should implement:
+It is possible to recognize different features that a web crawler should implement:
 
 - Quality, it should be biased toward fetching "useful" pages first.
 - Efficiency, it should avoid duplication, or near duplication, of the content crawled.
@@ -84,7 +84,7 @@ The bit cost of the transmission of the Bloom Filter of $A$ and $Q$ is $\Theta (
 
 The distributed computation of approximate set difference can be derived by the previous algorithm, when $A$ can correctly compute the difference via $A-B=A-Q$, and $B$ can obtain an approximation via $B-A \approx B - Q$.
 
-Another possibile approach to compute the set difference is using Patricia Trees derived from $A$ and $B$.
+Another possible approach to compute the set difference is using Patricia Trees derived from $A$ and $B$.
 Comparing each node in a top-down fashion, if the node are equals the visit backtracks, otherwise it proceeds to all children, when a leaf is reached then the corresponding element of $B$ is declared to be in $B-A$.
 This solution is obviously unfeasible in practice because of the cost of replicating the subsets in a node, but this could be avoided by using the same algorithm on a Merkle Tree, that stores instead the hash of each subset in the corresponding node.
 It's possible to improve again the space occupancy by computing a Bloom Filter of the nodes of the Merkle Tree $MT_A$, and then visiting top-down the $MT_B$ tree each node is checked against $BF(MT_A)$.
@@ -131,9 +131,9 @@ else
 The web is too big to be crawled by a single crawler, so the work should be divided avoiding duplication of work.
 Using static assignment is difficult to load balance the URLs assigned to a crawler, also the situation of fault-tolerance where one downloader could be removed or created in a dynamic way makes the static assignment prone to errors.
 
-A possibile solution is the use of the consistent hashing technique.
+A possible solution is the use of the consistent hashing technique.
 Given two[^1] hashing functions $h_s : \textrm{Server} \rightarrow {x}$ and $h_u : \textrm{URL} \rightarrow {x}$, we use an orientated circular mapping where the items are dynamically partitioned in arcs between the servers and, assuming clockwise orientation, each server needs to communicate only with its successor in case of mutation in the topography.
 
-In average each server of the $m$ server has assigned $\frac{n}{m}$ URLs, it's possibile to prove that this happens with hight probability.
+In average each server of the $m$ server has assigned $\frac{n}{m}$ URLs, it's possible to prove that this happens with hight probability.
 
 [^1]: The slides of the course mention only one function, also in some of the exercises the same function is used for both objects.

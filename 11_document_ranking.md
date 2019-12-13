@@ -107,7 +107,7 @@ In practice we can reduce score computation of the 90%.
 
 ### Blocked WAND
 The WAND algorithm makes use of an upper bound over the full list of a term.
-It's possibile to improve this upper bound by partitioning the set of documents, and storing for each bucket in the posting list the maximum score as upper bound.
+It's possible to improve this upper bound by partitioning the set of documents, and storing for each bucket in the posting list the maximum score as upper bound.
 
 The algorithm performs now a second check after the movement of the pivot.
 Reached the pivot the sum of the current bucket upper bound of the relevant terms is computed, if the sum is smaller then $\Theta$ we can discard all the documents whose right-end of the bucket is the leftmost one.

@@ -16,4 +16,4 @@ The first idea to maintain the relation between terms and documents containing t
 To solve this issue we make use of an inverted index where for each term $t$ we must store a list of all documents that contain $t$, each of these identified by a unique id.
 The set of terms is called the dictionary, while the documents are called posting and consequently a list is called a postings list.
 
-The `AND` operation can now be implemented by intersecting the postings list, doing this in growing order is one of the possibile optimizations to speedup the computation.
+The `AND` operation can now be implemented by intersecting the postings list, doing this in growing order is one of the possible optimizations to speedup the computation.
